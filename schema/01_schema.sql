@@ -25,3 +25,13 @@ CREATE TABLE patients (
   city TEXT NOT NULL,
   insurance TEXT
 );
+
+-- appointments
+CREATE TABLE appointments (
+  id INTEGER PRIMARY KEY,
+  patient_id INTEGER NOT NULL REFERENCES patients(id),
+  doctor_id INTEGER NOT NULL REFERENCES doctors(id),
+  scheduled_at TIMESTAMP NOT NULL,
+  status TEXT NOT NULL CHECK (status IN ('scheduled', 'completed', 'cancelled', 'no_show')),
+  fee NUMERIC NOT NULL DEFAULT 0
+);
