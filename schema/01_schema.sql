@@ -16,3 +16,12 @@ CREATE TABLE doctors (
   hired_on DATE NOT NULL,
   salary NUMERIC NOT NULL CHECK (salary > 0)
 );
+
+-- patients
+CREATE TABLE patients (
+  id INTEGER PRIMARY KEY,
+  name TEXT NOT NULL,
+  birth_date DATE NOT NULL,
+  city TEXT NOT NULL,
+  insurance TEXT
+);
