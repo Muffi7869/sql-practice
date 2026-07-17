@@ -35,3 +35,11 @@ CREATE TABLE appointments (
   status TEXT NOT NULL CHECK (status IN ('scheduled', 'completed', 'cancelled', 'no_show')),
   fee NUMERIC NOT NULL DEFAULT 0
 );
+
+-- prescriptions
+CREATE TABLE prescriptions (
+  id INTEGER PRIMARY KEY,
+  appointment_id INTEGER NOT NULL REFERENCES appointments(id),
+  drug TEXT NOT NULL,
+  days INTEGER NOT NULL
+);
