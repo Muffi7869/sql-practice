@@ -1,0 +1,2 @@
+-- hospital database used for all the practice queries
+-- runs on sqlite and postgres (mostly standard sql)
