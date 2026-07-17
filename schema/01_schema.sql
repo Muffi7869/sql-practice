@@ -43,3 +43,7 @@ CREATE TABLE prescriptions (
   drug TEXT NOT NULL,
   days INTEGER NOT NULL
 );
+
+-- indexes for the common lookups
+CREATE INDEX idx_appt_doctor ON appointments(doctor_id, scheduled_at);
+CREATE INDEX idx_appt_patient ON appointments(patient_id);
