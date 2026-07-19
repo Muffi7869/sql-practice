@@ -17,3 +17,10 @@ INSERT INTO patients (id, name, birth_date, city, insurance) VALUES
   (3, 'Kabir Mehta', '1978-01-05', 'Bardoli', 'HDFC Ergo'), (4, 'Isha Joshi', '2001-12-19', 'Navsari', 'StarHealth'),
   (5, 'Rohan Desai', '1965-07-23', 'Surat', 'LIC'), (6, 'Anaya Rao', '2019-03-14', 'Bardoli', NULL),
   (7, 'Vihaan Kumar', '1985-10-02', 'Vyara', 'HDFC Ergo'), (8, 'Sara Khan', '1995-05-27', 'Surat', 'StarHealth');
+
+-- appointments (part 1)
+INSERT INTO appointments (id, patient_id, doctor_id, scheduled_at, status, fee) VALUES
+  (1, 1, 1, '2026-07-01 09:30', 'completed', 500), (2, 2, 4, '2026-07-01 10:00', 'completed', 600),
+  (3, 3, 5, '2026-07-02 11:15', 'completed', 1500), (4, 4, 7, '2026-07-02 12:00', 'cancelled', 0),
+  (5, 5, 5, '2026-07-03 09:00', 'completed', 1500), (6, 6, 4, '2026-07-03 15:30', 'no_show', 0),
+  (7, 7, 3, '2026-07-04 10:45', 'completed', 1200), (8, 8, 1, '2026-07-05 16:00', 'completed', 500);
