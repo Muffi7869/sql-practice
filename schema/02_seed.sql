@@ -24,3 +24,10 @@ INSERT INTO appointments (id, patient_id, doctor_id, scheduled_at, status, fee) 
   (3, 3, 5, '2026-07-02 11:15', 'completed', 1500), (4, 4, 7, '2026-07-02 12:00', 'cancelled', 0),
   (5, 5, 5, '2026-07-03 09:00', 'completed', 1500), (6, 6, 4, '2026-07-03 15:30', 'no_show', 0),
   (7, 7, 3, '2026-07-04 10:45', 'completed', 1200), (8, 8, 1, '2026-07-05 16:00', 'completed', 500);
+
+-- appointments (part 2)
+INSERT INTO appointments (id, patient_id, doctor_id, scheduled_at, status, fee) VALUES
+  (9, 1, 6, '2026-07-08 09:15', 'completed', 1400), (10, 3, 5, '2026-07-09 11:00', 'completed', 1500),
+  (11, 5, 2, '2026-07-10 14:20', 'completed', 450), (12, 2, 4, '2026-07-12 10:30', 'completed', 600),
+  (13, 7, 3, '2026-07-15 13:00', 'completed', 1200), (14, 8, 7, '2026-07-16 17:10', 'completed', 800),
+  (15, 4, 1, '2026-07-18 09:45', 'scheduled', 500), (16, 6, 4, '2026-07-20 11:30', 'scheduled', 600);
