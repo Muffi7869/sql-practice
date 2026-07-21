@@ -31,3 +31,9 @@ INSERT INTO appointments (id, patient_id, doctor_id, scheduled_at, status, fee) 
   (11, 5, 2, '2026-07-10 14:20', 'completed', 450), (12, 2, 4, '2026-07-12 10:30', 'completed', 600),
   (13, 7, 3, '2026-07-15 13:00', 'completed', 1200), (14, 8, 7, '2026-07-16 17:10', 'completed', 800),
   (15, 4, 1, '2026-07-18 09:45', 'scheduled', 500), (16, 6, 4, '2026-07-20 11:30', 'scheduled', 600);
+
+-- prescriptions
+INSERT INTO prescriptions (id, appointment_id, drug, days) VALUES
+  (1, 1, 'Paracetamol', 5), (2, 3, 'Atorvastatin', 90), (3, 3, 'Aspirin', 30), (4, 5, 'Metoprolol', 60),
+  (5, 7, 'Ibuprofen', 10), (6, 9, 'Atorvastatin', 90), (7, 10, 'Aspirin', 30), (8, 13, 'Ibuprofen', 7),
+  (9, 14, 'Tretinoin', 45), (10, 12, 'Amoxicillin', 7);
