@@ -18,3 +18,6 @@ WHERE status = 'completed' AND scheduled_at BETWEEN '2026-07-01' AND '2026-07-07
 
 -- pattern matching on names
 SELECT name FROM patients WHERE name LIKE '%Shah%' OR name LIKE 'K%';
+
+-- distinct cities we serve
+SELECT DISTINCT city FROM patients ORDER BY city;
