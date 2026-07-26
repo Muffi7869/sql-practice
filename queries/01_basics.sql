@@ -11,3 +11,7 @@ SELECT name, hired_on FROM doctors WHERE hired_on >= '2018-01-01' ORDER BY hired
 
 -- top 3 highest paid doctors
 SELECT name, salary FROM doctors ORDER BY salary DESC LIMIT 3;
+
+-- appointments in a date range that actually happened
+SELECT id, scheduled_at, fee FROM appointments
+WHERE status = 'completed' AND scheduled_at BETWEEN '2026-07-01' AND '2026-07-07 23:59';
