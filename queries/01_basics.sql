@@ -15,3 +15,6 @@ SELECT name, salary FROM doctors ORDER BY salary DESC LIMIT 3;
 -- appointments in a date range that actually happened
 SELECT id, scheduled_at, fee FROM appointments
 WHERE status = 'completed' AND scheduled_at BETWEEN '2026-07-01' AND '2026-07-07 23:59';
+
+-- pattern matching on names
+SELECT name FROM patients WHERE name LIKE '%Shah%' OR name LIKE 'K%';
