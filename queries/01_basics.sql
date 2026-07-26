@@ -21,3 +21,6 @@ SELECT name FROM patients WHERE name LIKE '%Shah%' OR name LIKE 'K%';
 
 -- distinct cities we serve
 SELECT DISTINCT city FROM patients ORDER BY city;
+
+-- computed column + alias
+SELECT name, salary, ROUND(salary / 12.0, 2) AS monthly FROM doctors;
