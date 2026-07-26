@@ -8,3 +8,6 @@ SELECT name, city FROM patients WHERE insurance IS NULL;
 
 -- doctors hired after 2018, newest first
 SELECT name, hired_on FROM doctors WHERE hired_on >= '2018-01-01' ORDER BY hired_on DESC;
+
+-- top 3 highest paid doctors
+SELECT name, salary FROM doctors ORDER BY salary DESC LIMIT 3;
