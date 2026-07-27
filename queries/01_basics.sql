@@ -29,3 +29,6 @@ SELECT name, salary, ROUND(salary / 12.0, 2) AS monthly FROM doctors;
 SELECT id, fee,
   CASE WHEN fee = 0 THEN 'free' WHEN fee < 1000 THEN 'standard' ELSE 'specialist' END AS tier
 FROM appointments;
+
+-- coalesce null insurance
+SELECT name, COALESCE(insurance, 'self pay') AS payer FROM patients;
