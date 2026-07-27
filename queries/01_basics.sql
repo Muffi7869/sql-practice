@@ -24,3 +24,8 @@ SELECT DISTINCT city FROM patients ORDER BY city;
 
 -- computed column + alias
 SELECT name, salary, ROUND(salary / 12.0, 2) AS monthly FROM doctors;
+
+-- case expression to label fees
+SELECT id, fee,
+  CASE WHEN fee = 0 THEN 'free' WHEN fee < 1000 THEN 'standard' ELSE 'specialist' END AS tier
+FROM appointments;
