@@ -5,3 +5,8 @@ SELECT d.name, SUM(a.fee) AS revenue, COUNT(*) AS visits
 FROM appointments a JOIN doctors d ON d.id = a.doctor_id
 WHERE a.status = 'completed'
 GROUP BY d.name ORDER BY revenue DESC;
+
+-- average salary per department
+SELECT dep.name, ROUND(AVG(d.salary), 0) AS avg_salary, MIN(d.salary) AS min_salary, MAX(d.salary) AS max_salary
+FROM doctors d JOIN departments dep ON dep.id = d.department_id
+GROUP BY dep.name;
