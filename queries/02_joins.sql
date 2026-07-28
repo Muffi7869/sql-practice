@@ -29,3 +29,7 @@ FROM prescriptions pr
 JOIN appointments a ON a.id = pr.appointment_id
 JOIN doctors d ON d.id = a.doctor_id
 JOIN patients p ON p.id = a.patient_id;
+
+-- self join: doctors in the same department
+SELECT a.name AS doctor_a, b.name AS doctor_b, a.department_id
+FROM doctors a JOIN doctors b ON a.department_id = b.department_id AND a.id < b.id;
