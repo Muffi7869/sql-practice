@@ -10,3 +10,10 @@ FROM appointments a
 JOIN patients p ON p.id = a.patient_id
 JOIN doctors d ON d.id = a.doctor_id
 ORDER BY a.scheduled_at;
+
+-- left join: every department even if no appointments
+SELECT dep.name, COUNT(a.id) AS visits
+FROM departments dep
+LEFT JOIN doctors d ON d.department_id = dep.id
+LEFT JOIN appointments a ON a.doctor_id = d.id AND a.status = 'completed'
+GROUP BY dep.name ORDER BY visits DESC;
