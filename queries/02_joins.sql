@@ -17,3 +17,8 @@ FROM departments dep
 LEFT JOIN doctors d ON d.department_id = dep.id
 LEFT JOIN appointments a ON a.doctor_id = d.id AND a.status = 'completed'
 GROUP BY dep.name ORDER BY visits DESC;
+
+-- patients who never had a completed visit (anti join)
+SELECT p.name FROM patients p
+LEFT JOIN appointments a ON a.patient_id = p.id AND a.status = 'completed'
+WHERE a.id IS NULL;
