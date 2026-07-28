@@ -33,3 +33,10 @@ JOIN patients p ON p.id = a.patient_id;
 -- self join: doctors in the same department
 SELECT a.name AS doctor_a, b.name AS doctor_b, a.department_id
 FROM doctors a JOIN doctors b ON a.department_id = b.department_id AND a.id < b.id;
+
+-- patients who saw more than one department
+SELECT p.name, COUNT(DISTINCT d.department_id) AS depts
+FROM patients p
+JOIN appointments a ON a.patient_id = p.id
+JOIN doctors d ON d.id = a.doctor_id
+GROUP BY p.name HAVING COUNT(DISTINCT d.department_id) > 1;
