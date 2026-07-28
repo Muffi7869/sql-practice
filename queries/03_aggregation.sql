@@ -10,3 +10,7 @@ GROUP BY d.name ORDER BY revenue DESC;
 SELECT dep.name, ROUND(AVG(d.salary), 0) AS avg_salary, MIN(d.salary) AS min_salary, MAX(d.salary) AS max_salary
 FROM doctors d JOIN departments dep ON dep.id = d.department_id
 GROUP BY dep.name;
+
+-- appointment status breakdown
+SELECT status, COUNT(*) AS n, ROUND(100.0 * COUNT(*) / (SELECT COUNT(*) FROM appointments), 1) AS pct
+FROM appointments GROUP BY status ORDER BY n DESC;
