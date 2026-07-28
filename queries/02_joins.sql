@@ -22,3 +22,10 @@ GROUP BY dep.name ORDER BY visits DESC;
 SELECT p.name FROM patients p
 LEFT JOIN appointments a ON a.patient_id = p.id AND a.status = 'completed'
 WHERE a.id IS NULL;
+
+-- prescriptions with the doctor who wrote them
+SELECT pr.drug, pr.days, d.name AS doctor, p.name AS patient
+FROM prescriptions pr
+JOIN appointments a ON a.id = pr.appointment_id
+JOIN doctors d ON d.id = a.doctor_id
+JOIN patients p ON p.id = a.patient_id;
