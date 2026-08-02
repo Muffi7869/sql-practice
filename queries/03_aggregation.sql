@@ -17,3 +17,7 @@ FROM appointments GROUP BY status ORDER BY n DESC;
 
 -- cities with more than one patient
 SELECT city, COUNT(*) AS patients FROM patients GROUP BY city HAVING COUNT(*) > 1;
+
+-- busiest day
+SELECT DATE(scheduled_at) AS day, COUNT(*) AS appts
+FROM appointments GROUP BY DATE(scheduled_at) ORDER BY appts DESC, day LIMIT 1;
