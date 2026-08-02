@@ -32,3 +32,6 @@ SELECT d.name,
   COUNT(*) AS booked
 FROM appointments a JOIN doctors d ON d.id = a.doctor_id
 GROUP BY d.name HAVING COUNT(*) >= 2;
+
+-- payroll total
+SELECT COUNT(*) AS doctors, SUM(salary) AS annual_payroll, ROUND(SUM(salary) / 12.0) AS monthly_payroll FROM doctors;
