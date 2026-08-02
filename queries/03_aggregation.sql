@@ -25,3 +25,10 @@ FROM appointments GROUP BY DATE(scheduled_at) ORDER BY appts DESC, day LIMIT 1;
 -- most prescribed drugs and total days supplied
 SELECT drug, COUNT(*) AS times, SUM(days) AS total_days
 FROM prescriptions GROUP BY drug ORDER BY times DESC, drug;
+
+-- no-show + cancel rate per doctor
+SELECT d.name,
+  SUM(CASE WHEN a.status IN ('no_show', 'cancelled') THEN 1 ELSE 0 END) AS missed,
+  COUNT(*) AS booked
+FROM appointments a JOIN doctors d ON d.id = a.doctor_id
+GROUP BY d.name HAVING COUNT(*) >= 2;
