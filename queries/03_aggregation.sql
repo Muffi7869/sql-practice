@@ -14,3 +14,6 @@ GROUP BY dep.name;
 -- appointment status breakdown
 SELECT status, COUNT(*) AS n, ROUND(100.0 * COUNT(*) / (SELECT COUNT(*) FROM appointments), 1) AS pct
 FROM appointments GROUP BY status ORDER BY n DESC;
+
+-- cities with more than one patient
+SELECT city, COUNT(*) AS patients FROM patients GROUP BY city HAVING COUNT(*) > 1;
