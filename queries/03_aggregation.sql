@@ -21,3 +21,7 @@ SELECT city, COUNT(*) AS patients FROM patients GROUP BY city HAVING COUNT(*) > 
 -- busiest day
 SELECT DATE(scheduled_at) AS day, COUNT(*) AS appts
 FROM appointments GROUP BY DATE(scheduled_at) ORDER BY appts DESC, day LIMIT 1;
+
+-- most prescribed drugs and total days supplied
+SELECT drug, COUNT(*) AS times, SUM(days) AS total_days
+FROM prescriptions GROUP BY drug ORDER BY times DESC, drug;
