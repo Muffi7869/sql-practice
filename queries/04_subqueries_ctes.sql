@@ -26,3 +26,11 @@ WITH dept_rev AS (
 )
 SELECT dep.name, r.revenue FROM dept_rev r JOIN departments dep ON dep.id = r.department_id
 WHERE r.revenue > 1000 ORDER BY r.revenue DESC;
+
+-- chained ctes: patient age then age buckets
+WITH ages AS (
+  SELECT name, CAST((julianday('2026-08-01') - julianday(birth_date)) / 365.25 AS INTEGER) AS age FROM patients
+), buckets AS (
+  SELECT name, age, CASE WHEN age < 18 THEN 'child' WHEN age < 60 THEN 'adult' ELSE 'senior' END AS grp FROM ages
+)
+SELECT grp, COUNT(*) AS n, MIN(age) AS youngest, MAX(age) AS oldest FROM buckets GROUP BY grp;
