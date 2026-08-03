@@ -34,3 +34,12 @@ WITH ages AS (
   SELECT name, age, CASE WHEN age < 18 THEN 'child' WHEN age < 60 THEN 'adult' ELSE 'senior' END AS grp FROM ages
 )
 SELECT grp, COUNT(*) AS n, MIN(age) AS youngest, MAX(age) AS oldest FROM buckets GROUP BY grp;
+
+-- recursive cte: generate the days of a week and count appointments per day (including zero days)
+WITH RECURSIVE days(d) AS (
+  SELECT DATE('2026-07-01')
+  UNION ALL SELECT DATE(d, '+1 day') FROM days WHERE d < '2026-07-07'
+)
+SELECT days.d, COUNT(a.id) AS appts FROM days
+LEFT JOIN appointments a ON DATE(a.scheduled_at) = days.d
+GROUP BY days.d ORDER BY days.d;
