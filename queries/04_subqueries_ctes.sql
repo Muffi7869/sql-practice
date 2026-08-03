@@ -17,3 +17,12 @@ SELECT dep.name FROM departments dep WHERE EXISTS (
   SELECT 1 FROM doctors d JOIN appointments a ON a.doctor_id = d.id
   WHERE d.department_id = dep.id AND a.status = 'cancelled'
 );
+
+-- cte: revenue per department then filter
+WITH dept_rev AS (
+  SELECT d.department_id, SUM(a.fee) AS revenue
+  FROM appointments a JOIN doctors d ON d.id = a.doctor_id
+  WHERE a.status = 'completed' GROUP BY d.department_id
+)
+SELECT dep.name, r.revenue FROM dept_rev r JOIN departments dep ON dep.id = r.department_id
+WHERE r.revenue > 1000 ORDER BY r.revenue DESC;
