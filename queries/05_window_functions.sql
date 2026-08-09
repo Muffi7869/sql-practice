@@ -15,3 +15,8 @@ GROUP BY DATE(scheduled_at);
 SELECT patient_id, scheduled_at,
   ROW_NUMBER() OVER (PARTITION BY patient_id ORDER BY scheduled_at) AS visit_no
 FROM appointments;
+
+-- days since the patient's previous visit (lag)
+SELECT patient_id, scheduled_at,
+  julianday(scheduled_at) - julianday(LAG(scheduled_at) OVER (PARTITION BY patient_id ORDER BY scheduled_at)) AS days_since_last
+FROM appointments ORDER BY patient_id, scheduled_at;
