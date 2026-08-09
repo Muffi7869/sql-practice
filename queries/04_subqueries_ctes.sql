@@ -43,3 +43,9 @@ WITH RECURSIVE days(d) AS (
 SELECT days.d, COUNT(a.id) AS appts FROM days
 LEFT JOIN appointments a ON DATE(a.scheduled_at) = days.d
 GROUP BY days.d ORDER BY days.d;
+
+-- repeat patients (more than one visit) and their first visit date
+WITH visits AS (
+  SELECT patient_id, COUNT(*) AS n, MIN(scheduled_at) AS first_visit FROM appointments GROUP BY patient_id
+)
+SELECT p.name, v.n, v.first_visit FROM visits v JOIN patients p ON p.id = v.patient_id WHERE v.n > 1 ORDER BY v.n DESC;
