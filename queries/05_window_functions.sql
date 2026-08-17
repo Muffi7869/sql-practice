@@ -20,3 +20,9 @@ FROM appointments;
 SELECT patient_id, scheduled_at,
   julianday(scheduled_at) - julianday(LAG(scheduled_at) OVER (PARTITION BY patient_id ORDER BY scheduled_at)) AS days_since_last
 FROM appointments ORDER BY patient_id, scheduled_at;
+
+-- salary vs department average without a subquery
+SELECT name, salary,
+  ROUND(AVG(salary) OVER (PARTITION BY department_id), 0) AS dept_avg,
+  salary - ROUND(AVG(salary) OVER (PARTITION BY department_id), 0) AS diff
+FROM doctors;
