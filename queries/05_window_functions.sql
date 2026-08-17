@@ -32,3 +32,8 @@ WITH ranked AS (
   SELECT name, department_id, salary, ROW_NUMBER() OVER (PARTITION BY department_id ORDER BY salary DESC) AS rn FROM doctors
 )
 SELECT dep.name AS department, r.name, r.salary FROM ranked r JOIN departments dep ON dep.id = r.department_id WHERE rn = 1;
+
+-- 3 visit moving average of fees
+SELECT id, scheduled_at, fee,
+  ROUND(AVG(fee) OVER (ORDER BY scheduled_at ROWS BETWEEN 2 PRECEDING AND CURRENT ROW), 1) AS moving_avg
+FROM appointments WHERE status = 'completed';
