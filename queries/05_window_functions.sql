@@ -26,3 +26,9 @@ SELECT name, salary,
   ROUND(AVG(salary) OVER (PARTITION BY department_id), 0) AS dept_avg,
   salary - ROUND(AVG(salary) OVER (PARTITION BY department_id), 0) AS diff
 FROM doctors;
+
+-- top earning doctor per department using a window + cte
+WITH ranked AS (
+  SELECT name, department_id, salary, ROW_NUMBER() OVER (PARTITION BY department_id ORDER BY salary DESC) AS rn FROM doctors
+)
+SELECT dep.name AS department, r.name, r.salary FROM ranked r JOIN departments dep ON dep.id = r.department_id WHERE rn = 1;
