@@ -37,3 +37,9 @@ SELECT dep.name AS department, r.name, r.salary FROM ranked r JOIN departments d
 SELECT id, scheduled_at, fee,
   ROUND(AVG(fee) OVER (ORDER BY scheduled_at ROWS BETWEEN 2 PRECEDING AND CURRENT ROW), 1) AS moving_avg
 FROM appointments WHERE status = 'completed';
+
+-- percent of total revenue per doctor
+SELECT d.name, SUM(a.fee) AS revenue,
+  ROUND(100.0 * SUM(a.fee) / SUM(SUM(a.fee)) OVER (), 1) AS pct_of_total
+FROM appointments a JOIN doctors d ON d.id = a.doctor_id
+WHERE a.status = 'completed' GROUP BY d.name ORDER BY revenue DESC;
