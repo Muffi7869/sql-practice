@@ -43,3 +43,6 @@ SELECT d.name, SUM(a.fee) AS revenue,
   ROUND(100.0 * SUM(a.fee) / SUM(SUM(a.fee)) OVER (), 1) AS pct_of_total
 FROM appointments a JOIN doctors d ON d.id = a.doctor_id
 WHERE a.status = 'completed' GROUP BY d.name ORDER BY revenue DESC;
+
+-- ntile: split patients into age quartiles
+SELECT name, birth_date, NTILE(4) OVER (ORDER BY birth_date) AS quartile FROM patients;
