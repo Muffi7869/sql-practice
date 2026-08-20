@@ -10,3 +10,8 @@ JOIN departments dep ON dep.id = d.department_id;
 
 -- query the view
 SELECT department, COUNT(*) AS visits, SUM(fee) AS revenue FROM appointment_report WHERE status = 'completed' GROUP BY department;
+
+-- view: monthly payroll per department
+CREATE VIEW monthly_payroll AS
+SELECT dep.name AS department, ROUND(SUM(d.salary) / 12.0, 2) AS monthly
+FROM doctors d JOIN departments dep ON dep.id = d.department_id GROUP BY dep.name;
