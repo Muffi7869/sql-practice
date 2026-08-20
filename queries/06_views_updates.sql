@@ -15,3 +15,8 @@ SELECT department, COUNT(*) AS visits, SUM(fee) AS revenue FROM appointment_repo
 CREATE VIEW monthly_payroll AS
 SELECT dep.name AS department, ROUND(SUM(d.salary) / 12.0, 2) AS monthly
 FROM doctors d JOIN departments dep ON dep.id = d.department_id GROUP BY dep.name;
+
+-- give cardiology a 5% raise inside a transaction
+BEGIN;
+UPDATE doctors SET salary = ROUND(salary * 1.05) WHERE department_id = (SELECT id FROM departments WHERE name = 'Cardiology');
+COMMIT;
