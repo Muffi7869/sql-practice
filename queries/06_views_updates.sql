@@ -23,3 +23,7 @@ COMMIT;
 
 -- mark old scheduled appointments as no_show
 UPDATE appointments SET status = 'no_show' WHERE status = 'scheduled' AND scheduled_at < '2026-07-19';
+
+-- upsert a patient (sqlite / postgres syntax)
+INSERT INTO patients (id, name, birth_date, city, insurance) VALUES (9, 'Neel Joshi', '2003-02-02', 'Surat', NULL)
+ON CONFLICT (id) DO UPDATE SET city = excluded.city;
