@@ -27,3 +27,6 @@ UPDATE appointments SET status = 'no_show' WHERE status = 'scheduled' AND schedu
 -- upsert a patient (sqlite / postgres syntax)
 INSERT INTO patients (id, name, birth_date, city, insurance) VALUES (9, 'Neel Joshi', '2003-02-02', 'Surat', NULL)
 ON CONFLICT (id) DO UPDATE SET city = excluded.city;
+
+-- delete cancelled appointments with no prescriptions
+DELETE FROM appointments WHERE status = 'cancelled' AND id NOT IN (SELECT appointment_id FROM prescriptions);
