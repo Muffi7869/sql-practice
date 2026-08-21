@@ -20,3 +20,6 @@ FROM doctors d JOIN departments dep ON dep.id = d.department_id GROUP BY dep.nam
 BEGIN;
 UPDATE doctors SET salary = ROUND(salary * 1.05) WHERE department_id = (SELECT id FROM departments WHERE name = 'Cardiology');
 COMMIT;
+
+-- mark old scheduled appointments as no_show
+UPDATE appointments SET status = 'no_show' WHERE status = 'scheduled' AND scheduled_at < '2026-07-19';
