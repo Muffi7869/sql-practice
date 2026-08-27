@@ -9,3 +9,6 @@ GROUP BY dep.name HAVING MIN(d.salary) > 150000;
 
 -- duplicate check: patients sharing a birth year and city
 SELECT city, SUBSTR(birth_date, 1, 4) AS yr, COUNT(*) AS n FROM patients GROUP BY city, yr HAVING COUNT(*) > 1;
+
+-- doctors with no appointments at all
+SELECT d.name FROM doctors d WHERE NOT EXISTS (SELECT 1 FROM appointments a WHERE a.doctor_id = d.id);
