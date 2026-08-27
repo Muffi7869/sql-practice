@@ -12,3 +12,6 @@ SELECT city, SUBSTR(birth_date, 1, 4) AS yr, COUNT(*) AS n FROM patients GROUP B
 
 -- doctors with no appointments at all
 SELECT d.name FROM doctors d WHERE NOT EXISTS (SELECT 1 FROM appointments a WHERE a.doctor_id = d.id);
+
+-- each patient's most expensive visit
+SELECT p.name, MAX(a.fee) AS max_fee FROM patients p JOIN appointments a ON a.patient_id = p.id GROUP BY p.name ORDER BY max_fee DESC;
