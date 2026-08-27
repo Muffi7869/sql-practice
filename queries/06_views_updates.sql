@@ -30,3 +30,6 @@ ON CONFLICT (id) DO UPDATE SET city = excluded.city;
 
 -- delete cancelled appointments with no prescriptions
 DELETE FROM appointments WHERE status = 'cancelled' AND id NOT IN (SELECT appointment_id FROM prescriptions);
+
+-- sanity check after changes
+SELECT status, COUNT(*) FROM appointments GROUP BY status ORDER BY status;
