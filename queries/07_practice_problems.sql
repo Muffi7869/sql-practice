@@ -28,3 +28,9 @@ SELECT dep.name,
   SUM(CASE WHEN a.scheduled_at >= '2026-07-15' THEN 1 ELSE 0 END) AS week3
 FROM appointments a JOIN doctors d ON d.id = a.doctor_id JOIN departments dep ON dep.id = d.department_id
 WHERE a.status = 'completed' GROUP BY dep.name;
+
+-- median fee of completed visits (no median function in sqlite)
+WITH ordered AS (
+  SELECT fee, ROW_NUMBER() OVER (ORDER BY fee) AS rn, COUNT(*) OVER () AS cnt FROM appointments WHERE status = 'completed'
+)
+SELECT AVG(fee) AS median_fee FROM ordered WHERE rn IN ((cnt + 1) / 2, (cnt + 2) / 2);
