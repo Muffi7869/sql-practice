@@ -20,3 +20,11 @@ SELECT p.name, MAX(a.fee) AS max_fee FROM patients p JOIN appointments a ON a.pa
 SELECT a1.patient_id, a1.scheduled_at AS first, a2.scheduled_at AS second
 FROM appointments a1 JOIN appointments a2 ON a1.patient_id = a2.patient_id AND a2.scheduled_at > a1.scheduled_at
 WHERE julianday(a2.scheduled_at) - julianday(a1.scheduled_at) <= 10;
+
+-- pivot: completed visits per department per week
+SELECT dep.name,
+  SUM(CASE WHEN a.scheduled_at < '2026-07-08' THEN 1 ELSE 0 END) AS week1,
+  SUM(CASE WHEN a.scheduled_at >= '2026-07-08' AND a.scheduled_at < '2026-07-15' THEN 1 ELSE 0 END) AS week2,
+  SUM(CASE WHEN a.scheduled_at >= '2026-07-15' THEN 1 ELSE 0 END) AS week3
+FROM appointments a JOIN doctors d ON d.id = a.doctor_id JOIN departments dep ON dep.id = d.department_id
+WHERE a.status = 'completed' GROUP BY dep.name;
