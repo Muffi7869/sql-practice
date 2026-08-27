@@ -34,3 +34,9 @@ WITH ordered AS (
   SELECT fee, ROW_NUMBER() OVER (ORDER BY fee) AS rn, COUNT(*) OVER () AS cnt FROM appointments WHERE status = 'completed'
 )
 SELECT AVG(fee) AS median_fee FROM ordered WHERE rn IN ((cnt + 1) / 2, (cnt + 2) / 2);
+
+-- year over year style: revenue change between first and second half of july
+SELECT
+  SUM(CASE WHEN scheduled_at < '2026-07-16' THEN fee ELSE 0 END) AS first_half,
+  SUM(CASE WHEN scheduled_at >= '2026-07-16' THEN fee ELSE 0 END) AS second_half
+FROM appointments WHERE status = 'completed';
