@@ -6,3 +6,6 @@ SELECT MAX(salary) AS second_highest FROM doctors WHERE salary < (SELECT MAX(sal
 -- departments where every doctor earns over 150k
 SELECT dep.name FROM departments dep JOIN doctors d ON d.department_id = dep.id
 GROUP BY dep.name HAVING MIN(d.salary) > 150000;
+
+-- duplicate check: patients sharing a birth year and city
+SELECT city, SUBSTR(birth_date, 1, 4) AS yr, COUNT(*) AS n FROM patients GROUP BY city, yr HAVING COUNT(*) > 1;
