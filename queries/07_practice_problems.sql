@@ -15,3 +15,8 @@ SELECT d.name FROM doctors d WHERE NOT EXISTS (SELECT 1 FROM appointments a WHER
 
 -- each patient's most expensive visit
 SELECT p.name, MAX(a.fee) AS max_fee FROM patients p JOIN appointments a ON a.patient_id = p.id GROUP BY p.name ORDER BY max_fee DESC;
+
+-- consecutive visits by the same patient within 10 days
+SELECT a1.patient_id, a1.scheduled_at AS first, a2.scheduled_at AS second
+FROM appointments a1 JOIN appointments a2 ON a1.patient_id = a2.patient_id AND a2.scheduled_at > a1.scheduled_at
+WHERE julianday(a2.scheduled_at) - julianday(a1.scheduled_at) <= 10;
