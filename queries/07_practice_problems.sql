@@ -49,3 +49,9 @@ GROUP BY pr.drug HAVING COUNT(DISTINCT a.doctor_id) > 1;
 WITH days AS (SELECT DISTINCT DATE(scheduled_at) AS d FROM appointments),
 grp AS (SELECT d, julianday(d) - ROW_NUMBER() OVER (ORDER BY d) AS g FROM days)
 SELECT MIN(d) AS streak_start, MAX(d) AS streak_end, COUNT(*) AS days FROM grp GROUP BY g ORDER BY days DESC;
+
+-- cumulative share of revenue (pareto check)
+WITH rev AS (
+  SELECT d.name, SUM(a.fee) AS r FROM appointments a JOIN doctors d ON d.id = a.doctor_id WHERE a.status = 'completed' GROUP BY d.name
+)
+SELECT name, r, ROUND(100.0 * SUM(r) OVER (ORDER BY r DESC) / SUM(r) OVER (), 1) AS cum_pct FROM rev ORDER BY r DESC;
