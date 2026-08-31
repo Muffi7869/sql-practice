@@ -40,3 +40,7 @@ SELECT
   SUM(CASE WHEN scheduled_at < '2026-07-16' THEN fee ELSE 0 END) AS first_half,
   SUM(CASE WHEN scheduled_at >= '2026-07-16' THEN fee ELSE 0 END) AS second_half
 FROM appointments WHERE status = 'completed';
+
+-- drugs prescribed by more than one doctor
+SELECT pr.drug, COUNT(DISTINCT a.doctor_id) AS doctors FROM prescriptions pr JOIN appointments a ON a.id = pr.appointment_id
+GROUP BY pr.drug HAVING COUNT(DISTINCT a.doctor_id) > 1;
