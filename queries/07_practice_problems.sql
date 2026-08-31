@@ -44,3 +44,8 @@ FROM appointments WHERE status = 'completed';
 -- drugs prescribed by more than one doctor
 SELECT pr.drug, COUNT(DISTINCT a.doctor_id) AS doctors FROM prescriptions pr JOIN appointments a ON a.id = pr.appointment_id
 GROUP BY pr.drug HAVING COUNT(DISTINCT a.doctor_id) > 1;
+
+-- gaps and islands: streaks of days with at least one appointment
+WITH days AS (SELECT DISTINCT DATE(scheduled_at) AS d FROM appointments),
+grp AS (SELECT d, julianday(d) - ROW_NUMBER() OVER (ORDER BY d) AS g FROM days)
+SELECT MIN(d) AS streak_start, MAX(d) AS streak_end, COUNT(*) AS days FROM grp GROUP BY g ORDER BY days DESC;
